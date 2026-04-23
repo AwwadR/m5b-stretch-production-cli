@@ -1,0 +1,26 @@
+Model Comparison Summary
+==============================
+
+Results table:
+                        model  accuracy_mean  accuracy_std  precision_mean  precision_std  recall_mean  recall_std  f1_mean   f1_std  pr_auc_mean  pr_auc_std
+RandomForest_Balanced_Depth10       0.800444      0.016414        0.412398       0.034380     0.493133    0.038989 0.447189 0.020183     0.466346    0.035476
+ DecisionTree_Balanced_Depth5       0.704444      0.023328        0.333731       0.020554     0.801618    0.031511 0.470788 0.021272     0.455667    0.033375
+   LogisticRegression_Default       0.851778      0.007083        0.694001       0.083564     0.163045    0.043667 0.262190 0.063117     0.451358    0.041483
+  LogisticRegression_Balanced       0.694000      0.027040        0.307565       0.029072     0.688821    0.049527 0.424816 0.034422     0.448384    0.042163
+         DecisionTree_Default       0.786222      0.016080        0.357828       0.044409     0.390007    0.068143 0.372444 0.053388     0.241946    0.032156
+                        Dummy       0.836444      0.000444        0.000000       0.000000     0.000000    0.000000 0.000000 0.000000     0.163556    0.000444
+
+Best model by PR-AUC:
+model             RandomForest_Balanced_Depth10
+accuracy_mean                          0.800444
+accuracy_std                           0.016414
+precision_mean                         0.412398
+precision_std                           0.03438
+recall_mean                            0.493133
+recall_std                             0.038989
+f1_mean                                0.447189
+f1_std                                 0.020183
+pr_auc_mean                            0.466346
+pr_auc_std                             0.035476
+
+Top model: RandomForest_Balanced_Depth10 (PR-AUC=0.4663, F1=0.4472, Recall=0.4931)
