@@ -191,5 +191,3 @@ Other important results:
   - PR-AUC = **0.1636**
 
 This shows why accuracy alone is not enough for an imbalanced churn problem. Even though `LogisticRegression_Default` had the highest accuracy, the best PR-AUC came from `RandomForest_Balanced_Depth10`, which made it the strongest overall model under this evaluation setup.
-
----
