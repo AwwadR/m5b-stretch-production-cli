@@ -18,18 +18,6 @@ This makes the workflow more realistic and closer to how ML pipelines are used i
 
 ---
 
-## Repository Contents
-
-- `compare_models.py` — main production CLI script
-- `README.md` — usage and project documentation
-- `requirements.txt` — Python dependencies
-- `data/telecom_churn.csv` — input dataset used for testing
-- `output/model_comparison.csv` — saved metrics table
-- `output/comparison_summary.txt` — saved text summary
-- `output/pr_auc_comparison.png` — saved comparison plot
-
----
-
 ## Installation
 
 Clone the repository and move into the project folder:
@@ -53,33 +41,6 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-## Dataset
-
-The script expects a CSV file containing the telecom churn dataset.
-
-The target column is:
-
-- `churned`
-
-The numeric feature columns used in the pipeline are:
-
-- `tenure`
-- `monthly_charges`
-- `total_charges`
-- `num_support_calls`
-- `senior_citizen`
-- `has_partner`
-- `has_dependents`
-- `contract_months`
-
-During validation, the script checks that:
-
-- the file exists
-- the dataset is not empty
-- all required columns are present
-- the target column contains at least two classes
-
----
 
 ## Usage
 
@@ -205,7 +166,7 @@ Contains:
 ### 3) `pr_auc_comparison.png`
 Bar chart comparing the models by PR-AUC.
 
-The script does not display plots interactively. It saves them directly, which is more appropriate for a CLI pipeline.
+In `--dry-run` mode, no output files are created.
 
 ---
 
@@ -232,78 +193,3 @@ Other important results:
 This shows why accuracy alone is not enough for an imbalanced churn problem. Even though `LogisticRegression_Default` had the highest accuracy, the best PR-AUC came from `RandomForest_Balanced_Depth10`, which made it the strongest overall model under this evaluation setup.
 
 ---
-
-## Why PR-AUC Matters Here
-
-This dataset is imbalanced, with only about **16.36%** positive class examples (`churned = 1`).
-
-Because of that, PR-AUC is a more useful comparison metric than accuracy alone. A model can achieve high accuracy by predicting the majority class most of the time, but still fail to detect churners well.
-
-That is exactly what happened with some models in this comparison:
-
-- `LogisticRegression_Default` reached **0.8518** accuracy
-- but its recall was only **0.1630**
-
-So in this project, PR-AUC gave a more honest view of how well the models handled the minority class.
-
----
-
-## Script Design
-
-The script is organized into clear functions to make it easier to test and maintain:
-
-- `parse_args()`
-- `ensure_output_dir()`
-- `load_data()`
-- `validate_data()`
-- `build_preprocessor()`
-- `get_models()`
-- `run_dry_run()`
-- `train_and_evaluate()`
-- `save_metrics_table()`
-- `save_summary()`
-- `save_plot()`
-- `save_results()`
-- `main()`
-
-It also uses:
-
-- `argparse` for CLI argument parsing
-- `logging` instead of `print`
-- `if __name__ == "__main__":` so the script can be imported safely
-
----
-
-## Error Handling
-
-The script exits with a non-zero exit code if:
-
-- the input file does not exist
-- the dataset is empty
-- required columns are missing
-- the target column is invalid
-- another runtime error happens during execution
-
-This makes the script more reliable and easier to use from the command line.
-
----
-
-## Reflection
-
-This stretch helped me practice an important engineering skill: taking a working ML workflow and turning it into a tool that another person can actually run and use.
-
-The main improvement over a notebook-style workflow is that the pipeline is now:
-
-- reproducible
-- configurable
-- easier to validate
-- easier to rerun
-- easier to share
-
-Instead of relying on notebook state or manual cell execution, the whole process can now be run with one command.
-
----
-
-## Author
-
-Built as part of **Module 5 Week B — Stretch: From Notebook to Production Script**.
